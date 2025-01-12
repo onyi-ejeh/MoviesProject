@@ -9,7 +9,9 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 import jakarta.transaction.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @ApplicationScoped
 @Transactional
@@ -22,10 +24,9 @@ public class MoviesRepositoryImpl implements MoviesRepository {
     @Override
     public List<Movie> findMovies() {
         String sql = "SELECT * FROM movies ORDER BY title";
-        Query query = entityManager.createNativeQuery(sql);
-
-        List<Movie> movieList = query.getResultList();
-        return movieList;
+        Query query = entityManager.createNativeQuery(sql, Movie.class);
+        List<Movie> movies = query.getResultList();
+        return movies;
     }
 
     @Override
@@ -46,8 +47,10 @@ public class MoviesRepositoryImpl implements MoviesRepository {
     }
 
     @Override
-    public Long deleteMovie(Movie movie) {
+    public Long deleteMovie(Long id) {
+        var movie = findMovieById(id);
         entityManager.remove(movie);
         return movie.getId();
     }
+
 }

@@ -15,6 +15,6 @@ public interface MoviesRepository {
 
     Long createMovie(Movie movie);
 
-    Long deleteMovie(Movie movie);
+    Long deleteMovie(Long id);
 
 }

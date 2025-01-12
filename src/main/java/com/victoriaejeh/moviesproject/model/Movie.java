@@ -73,4 +73,13 @@ public class Movie {
     public Long getId() {
         return id;
     }
+
+    public void merge(Movie movie) {
+        this.title = movie.title;
+        this.genre = movie.genre;
+        this.releaseYear = movie.releaseYear;
+        this.shortDescription = movie.shortDescription;
+        this.director = movie.director;
+    }
+
 }
